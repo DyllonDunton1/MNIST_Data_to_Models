@@ -34,7 +34,7 @@ Test and train data will be given to NeuroModeler to train a neural network for 
 '''
 
 #---------------------CHANGE HERE----------------------------------------------
-labelsWant = [0,1]  
+labelsWant = [0,1,2,3,4,5,6,7,8,9]  
 
 
 INDIVIDUAL_ROW_PIX_COUNT = False  #28
@@ -42,9 +42,11 @@ INDIVIDUAL_ROW_STDEVS = False #28
 INDIVIDUAL_COL_PIX_COUNT = False #28
 INDIVIDUAL_COL_STDEVS = False #28
 TOTAL_BRIGHT_PIX_COUNT = True #1
+AVG_STD_ROWS = True #1
+AVG_STD_COLS = True #1
 
-MAX_TRAIN = 5000
-MAX_TEST = 1000
+MAX_TRAIN = 60000
+MAX_TEST = 10000
 BRIGHTNESS_THRESHOLD = 128
 HEIGHT = 28
 WIDTH = 28
@@ -54,8 +56,9 @@ testIMGsFILE = pathToData + "t10k-images.idx3-ubyte"
 testLABsFILE = pathToData + "t10k-labels.idx1-ubyte"
 trainIMGsFILE = pathToData + "train-images.idx3-ubyte"
 trainLABsFILE = pathToData + "train-labels.idx1-ubyte"
-outputTest = pathToData + "stat_test.dat"
-outputTrain = pathToData + "stat_train.dat"
+outName = "3input"
+outputTest = pathToData + outName + "-stat_test.dat"
+outputTrain = pathToData + outName + "-stat_train.dat"
 
 #-------------------------DO NOT CHANGE BELOW----------------------------------
 
@@ -136,6 +139,27 @@ def total_bright_pix_count():
                     pixCount += 1
         pixPercentage = pixCount/(HEIGHT*WIDTH)
         inputs.append(pixPercentage) #Adds 1 inputs
+
+def avg_std_rows():
+    #Calc avg stdev for rows
+    if AVG_STD_ROWS:
+        #print("Calc avg stdev for rows")
+        stdev_adder = 0
+        for row in current_image:
+            stdev_adder += np.std(row)
+        avg_std = stdev_adder/(HEIGHT)
+        inputs.append(avg_std) #Adds 1 inputs      
+
+def avg_std_cols():
+    #Calc avg stdev for cols
+    if AVG_STD_COLS:
+        #print("Calc avg stdev for cols")
+        stdev_adder = 0
+        np.transpose(current_image)
+        for col in current_image:
+            stdev_adder += np.std(col)
+        avg_std = stdev_adder/(WIDTH)
+        inputs.append(avg_std) #Adds 1 inputs            
           
 #------------------------------------------------------------------------
 
@@ -149,7 +173,7 @@ while(True): #EACH IMAGE
         set = trainCount
         current_set = "test"
         outFile = trainOutFile
-    if set > trainCount + MAX_TEST:
+    if set > trainCount + MAX_TEST - 1:
         print("DONE WITH TEST")
         break
 
@@ -180,6 +204,8 @@ while(True): #EACH IMAGE
     indiv_row_stdev()
     indiv_col_stdev()
     total_bright_pix_count()
+    avg_std_rows()
+    avg_std_cols()
 
     inputString = ""
     for input in inputs:
