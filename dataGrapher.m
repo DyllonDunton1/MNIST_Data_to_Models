@@ -1,8 +1,22 @@
-%% Data Parameters
-numInputs = 49; %Number of inputs
-numOutputs = 10; %Number of outputs
+%% File Purpose
+%This file is used to take MNIST data which has been preprocessed by
+%preprocess.py and compare the NeuroModeler product to a test file for the
+%given MNIST data. The data is then graphed in red and green to depict bad
+%and good outputs (respectively) from NeuroModeler. 
 
-testFile = importdata("convolve_7x7_test.dat", "\t");
+%% How to use
+%To use this file, simply put this file in the same directory as the MATLAB
+%functions produced by NeuroModeler as well as the processed MNIST data.
+%The only variables that need to be changed are the input values, 
+%the function type selection, and the test file path. Everything else can
+%be left as is, and the figure will appear after running. The amount of
+%good and bad outputs from the NeuroModeler is diisplayed in the Command
+%Window
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Data Parameters
+numInputs = 49; %Number of inputs <- Either 49, 28, or 3
+numOutputs = 10; %Number of outputs <- This won't change for us
 
 %% Change these dependent on what kind of data we're using
 fortyNineInputs = 1;
@@ -11,6 +25,8 @@ twentyEightInputsColSTDDev = 0;
 twentyEightRowPix = 0;
 twentyEightRowSTDDev = 0;
 threeInputs = 0;
+
+testFile = importdata("convolve_7x7_test.dat", "\t");
 
 %% Test File
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -51,6 +67,9 @@ numOccurrences = sum(indexMaxes == mostOccurrences);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% NeuroModeler
 neuroOutput = zeros([length(input),numOutputs]);
+
+%Go into one of these depending on what flag was set at the top
+%For loop iterates over the input file
 if(fortyNineInputs == 1)
     for i = 1:length(input)
         neuroOutput(i,:) = fortyNine(input(i,:));
@@ -111,6 +130,9 @@ badAverage = [];
 badIndexes = [];
 badOccurences = [];
 
+%Use these to count up how well the NeuroModeler matches the test file
+%(These should add up to 10,000 since that's how big our standard test file
+%is
 numBad = 0;
 numGood = 0;
 
@@ -133,6 +155,9 @@ end
 
 %% Plot
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Plot depending on the selection at the top. Scatters were used since the
+%axes are not the same length
 if(fortyNineInputs == 1)
     scatter3(goodAverage, goodOccurences, goodIndexes, 30, 'green', 'filled');
     hold on;
