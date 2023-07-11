@@ -37,13 +37,13 @@ Test and train data will be given to NeuroModeler to train a neural network for 
 labelsWant = [0,1,2,3,4,5,6,7,8,9]  
 
 
-INDIVIDUAL_ROW_PIX_COUNT = False  #28
+INDIVIDUAL_ROW_PIX_COUNT = True  #28
 INDIVIDUAL_ROW_STDEVS = False #28
 INDIVIDUAL_COL_PIX_COUNT = False #28
 INDIVIDUAL_COL_STDEVS = False #28
-TOTAL_BRIGHT_PIX_COUNT = True #1
-AVG_STD_ROWS = True #1
-AVG_STD_COLS = True #1
+TOTAL_BRIGHT_PIX_COUNT = False #1
+AVG_STD_ROWS = False #1
+AVG_STD_COLS = False #1
 
 MAX_TRAIN = 60000
 MAX_TEST = 10000
