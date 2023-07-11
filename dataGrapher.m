@@ -15,18 +15,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Data Parameters
-numInputs = 49; %Number of inputs <- Either 49, 28, or 3
+numInputs = 3; %Number of inputs <- Either 49, 28, or 3
 numOutputs = 10; %Number of outputs <- This won't change for us
 
 %% Change these dependent on what kind of data we're using
-fortyNineInputs = 1;
+fortyNineInputs = 0;
 twentyEightInputsColPix = 0;
 twentyEightInputsColSTDDev = 0;
 twentyEightRowPix = 0;
 twentyEightRowSTDDev = 0;
-threeInputs = 0;
+threeInputs = 1;
 
-testFile = importdata("convolve_7x7_test.dat", "\t");
+testFile = importdata("3input-stat_test.dat", " ");
 
 %% Test File
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -309,29 +309,13 @@ if(threeInputs == 1)
     scatter3(zeroVector(:, 2), zeroVector(:,3), zeroVector(:,1), 15, 'red', 'filled');
     hold on;
     scatter3(oneVector(:, 2), oneVector(:, 3), oneVector(:, 1), 15, 'green', 'filled');
-    hold off;
-    hold on;
     scatter3(twoVector(:, 2), twoVector(:, 3), twoVector(:, 1), 15, 'blue', 'filled');
-    hold off;
-    hold on;
     scatter3(threeVector(:, 2), threeVector(:, 3), threeVector(:, 1), 15, 'yellow', 'filled');
-    hold off;
-    hold on;
     scatter3(fourVector(:, 2), fourVector(:, 3), fourVector(:, 1), 15, 'cyan', 'filled');    
-    hold off;
-    hold on;
     scatter3(fiveVector(:, 2), fiveVector(:, 3), fiveVector(:, 1), 15, 'magenta', 'filled');    
-    hold off;
-    hold on;
     scatter3(sixVector(:, 2), sixVector(:, 3), sixVector(:, 1), 15, 'black', 'filled');
-    hold off;
-    hold on;
     scatter3(sevenVector(:, 2), sevenVector(:, 3), sevenVector(:, 1), 15, 'white', 'filled');
-    hold off;
-    hold on;
     scatter3(eightVector(:, 2), eightVector(:, 3), eightVector(:, 1), 15, [0.6350 0.0780 0.1840], 'filled');
-    hold off;
-    hold on;
     scatter3(nineVector(:, 2), nineVector(:, 3), nineVector(:, 1), 15, [.9290 .6940 .1250], 'filled');
     hold off;
     xlabel('Average Row Standard Deviation');
